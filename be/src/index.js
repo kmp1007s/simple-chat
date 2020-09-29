@@ -67,6 +67,12 @@ io.on('connection', (socket) => {
 
       socket.emit('make-room-success', roomName);
 
+      const userNamesInRoom = IO.client.getUserNamesFromSocketsInRoom(
+        io,
+        roomName
+      );
+      io.to(roomName).emit('user-changed', userNamesInRoom);
+
       io.to(roomName).emit('msg', {
         msg: '새로운 채팅방이 개설되었습니다!',
       });
