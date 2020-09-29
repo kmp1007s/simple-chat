@@ -7,26 +7,46 @@ import DevideTopAndBottom from '@templates/DevideTopAndBottom';
 
 import RoomName from '@atoms/chat/RoomName';
 import AttenderContainerDoPerform from '@components/state/chat/AttenderContainerDoPerform';
+import MessageInputDoPerform from '@components/state/chat/MessageInputDoPerform';
+import ChattingContainerDoPerform from '@components/state/chat/ChattingContainerDoPerform';
 
-function Chat({ socket, attenders }) {
+function Chat({ socket, attenders, currentUserName, messages }) {
   const params = useParams();
 
   return (
     <>
       <DevideLeftAndRight
-        leftRatio={25}
-        rightRatio={75}
+        leftRatio={21}
+        rightRatio={79}
         leftComponent={
           <DevideTopAndBottom
-            topRatio={8}
-            bottomRatio={92}
+            topRatio={9}
+            bottomRatio={91}
             topComponent={<RoomName roomName={params.name} />}
             bottomComponent={
               <AttenderContainerDoPerform attenders={attenders} />
             }
           ></DevideTopAndBottom>
         }
-        rightComponent={<h1>this is right</h1>}
+        rightComponent={
+          <DevideTopAndBottom
+            topRatio={94}
+            bottomRatio={6}
+            topComponent={
+              <ChattingContainerDoPerform
+                messages={messages}
+                currentUserName={currentUserName}
+              />
+            }
+            bottomComponent={
+              <MessageInputDoPerform
+                socket={socket}
+                roomName={params.name}
+                currentUserName={currentUserName}
+              />
+            }
+          ></DevideTopAndBottom>
+        }
       ></DevideLeftAndRight>
     </>
   );

@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
     try {
       socket.userName = userName; // 사용자 이름 설정
       socket.join(roomName);
-      socket.emit('enter-room-success', roomName);
+      socket.emit('enter-room-success', roomName, userName);
 
       io.to(roomName).emit('msg', {
         msg: `${userName}님이 입장했습니다.`,
@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
       const createdRoom = IO.room.getRoomUserCreated(io, roomName);
       createdRoom.creator = userName;
 
-      socket.emit('make-room-success', roomName);
+      socket.emit('make-room-success', roomName, userName);
 
       const userNamesInRoom = IO.client.getUserNamesFromSocketsInRoom(
         io,
@@ -83,6 +83,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('msg', ({ roomName, msg, userName }) => {
+    console.log('userName: ', userName);
     io.to(roomName).emit('msg', { msg, userName });
   });
 

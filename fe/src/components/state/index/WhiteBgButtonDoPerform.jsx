@@ -8,7 +8,7 @@ const makeRoom = (socket, roomName, userName) => {
   }
 };
 
-function WhiteBgButtonContainerDoPerform(props) {
+function WhiteBgButtonDoPerform(props) {
   return (
     <WhiteBgButton
       onClick={() => {
@@ -23,4 +23,4 @@ function WhiteBgButtonContainerDoPerform(props) {
   );
 }
 
-export default WhiteBgButtonContainerDoPerform;
+export default WhiteBgButtonDoPerform;

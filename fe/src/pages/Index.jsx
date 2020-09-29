@@ -9,7 +9,7 @@ import EmphasisText from '@atoms/Index/EmphasisText';
 import WhiteBox from '@atoms/Index/WhiteBox';
 
 import RoomContainerDoPerform from '@components/state/room/RoomContainerDoPerform';
-import WhiteBgButtonContainerDoPerform from '@components/state/index/WhiteBgButtonContainerDoPerform';
+import WhiteBgButtonDoPerform from '@components/state/index/WhiteBgButtonDoPerform';
 
 function Index({ socket, rooms }) {
   return (
@@ -27,9 +27,9 @@ function Index({ socket, rooms }) {
               </span>
             }
           ></TitleAndSummary>
-          <WhiteBgButtonContainerDoPerform socket={socket}>
+          <WhiteBgButtonDoPerform socket={socket}>
             방 만들기
-          </WhiteBgButtonContainerDoPerform>
+          </WhiteBgButtonDoPerform>
         </>
       }
       rightComponent={

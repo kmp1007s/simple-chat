@@ -11,6 +11,11 @@ function App() {
   const [currentRoom, setCurrentRoom] = useState(undefined);
   const [attenders, setAttenders] = useState(['김두식']);
   const [openRooms, setOpenRooms] = useState(null);
+  const [currentUserName, setCurrentUserName] = useState(undefined);
+  const [messages, setMessages] = useState([
+    { msg: 'dummy msg', userName: '김두식' },
+    { msg: 'syste msg' },
+  ]);
 
   const history = useHistory();
 
@@ -21,8 +26,9 @@ function App() {
     });
 
     // 방 만들기
-    socket.on('make-room-success', (roomName) => {
+    socket.on('make-room-success', (roomName, userName) => {
       setCurrentRoom(roomName);
+      setCurrentUserName(userName);
     });
 
     socket.on('make-room-fail', () => {
@@ -31,16 +37,15 @@ function App() {
 
     // 방 참가자 변경
     socket.on('user-changed', (attenders) => {
-      if (currentRoom) {
-        console.log(attenders);
-        setAttenders(attenders);
-      }
+      console.log(attenders);
+      setAttenders(attenders);
     });
 
     // 방 입장 응답
-    socket.on('enter-room-success', (roomName) => {
+    socket.on('enter-room-success', (roomName, userName) => {
       alert('방에 입장했습니다.');
       setCurrentRoom(roomName);
+      setCurrentUserName(userName);
     });
 
     socket.on('enter-room-fail', () => {});
@@ -55,16 +60,18 @@ function App() {
     });
 
     // 채팅방의 메시지를 받음
-    socket.on('msg', ({ msg, userName }) => {
-      if (msg) {
-        if (userName) {
-          console.log(`${userName}: ${msg}`);
+    socket.on('msg', (message) => {
+      setMessages((messages) => messages.concat(message));
+
+      if (message.msg) {
+        if (message.userName) {
+          console.log(`${message.userName}: ${message.msg}`);
         } else {
-          console.log(msg);
+          console.log(message.msg);
         }
       }
     });
-  }, [currentRoom]);
+  }, []);
 
   const initialEmit = useCallback(() => {
     socket.emit('fetch-rooms');
@@ -84,7 +91,13 @@ function App() {
 
   return (
     <>
-      <Routes socket={socket} rooms={openRooms} attenders={attenders} />
+      <Routes
+        socket={socket}
+        rooms={openRooms}
+        attenders={attenders}
+        currentUserName={currentUserName}
+        messages={messages}
+      />
       <div>
         {/*<button*/}
         {/*  onClick={() => {*/}
