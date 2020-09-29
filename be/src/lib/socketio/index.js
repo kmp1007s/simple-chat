@@ -1,4 +1,5 @@
 const room = require('./room');
+const client = require('./client');
 const socketio = require('socket.io');
 
 module.exports = {
@@ -7,4 +8,5 @@ module.exports = {
     return io;
   },
   room,
+  client,
 };
