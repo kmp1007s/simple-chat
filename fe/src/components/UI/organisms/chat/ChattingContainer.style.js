@@ -5,4 +5,5 @@ export const Container = styled.div`
   background: ${(props) => props.theme.whiteDark};
   padding: 8px 34px;
   overflow-y: auto;
+  overflow-x: hidden;
 `;
