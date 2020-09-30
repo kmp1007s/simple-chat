@@ -26,8 +26,6 @@ io.on('connection', (socket) => {
         roomName
       );
       io.to(roomName).emit('user-changed', userNamesInRoom);
-
-      console.log(`${roomName} 인원 변동: ${userNamesInRoom}`);
     } catch (e) {
       console.error(e);
       socket.emit('enter-room-fail');
@@ -40,6 +38,15 @@ io.on('connection', (socket) => {
       socket.leave(roomName);
       socket.emit('leave-room-success');
 
+      const roomIsAlive = IO.room.getRoomUserCreated(io, roomName);
+
+      if (!roomIsAlive) {
+        const roomNamesUserCreated = IO.room.getRoomNamesUserCreated(io); // 방 목록 갱신
+        io.sockets.emit('fetch-rooms', roomNamesUserCreated); // 새로운 방 목록 broadcast
+
+        return;
+      }
+
       io.to(roomName).emit('msg', { msg: `${userName}님이 퇴장하셨습니다.` });
 
       const userNamesInRoom = IO.client.getUserNamesFromSocketsInRoom(
@@ -47,8 +54,6 @@ io.on('connection', (socket) => {
         roomName
       );
       io.to(roomName).emit('user-changed', userNamesInRoom);
-
-      console.log(`${roomName} 인원 변동: ${userNamesInRoom}`);
     } catch (e) {
       console.error(e);
       socket.emit('leave-room-fail');
@@ -83,7 +88,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('msg', ({ roomName, msg, userName }) => {
-    console.log('userName: ', userName);
     io.to(roomName).emit('msg', { msg, userName });
   });
 
