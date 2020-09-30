@@ -18,7 +18,14 @@ function SearchGroupDoPerform({ openRooms, setSearchedRooms }) {
     [openRooms, setSearchedRooms]
   );
 
-  return <SearchGroup type="text" onChange={onChange} value={inputValue} />;
+  return (
+    <SearchGroup
+      type="text"
+      onChange={onChange}
+      value={inputValue}
+      placeholder="검색할 방 이름을 입력해주세요!"
+    />
+  );
 }
 
 export default SearchGroupDoPerform;
