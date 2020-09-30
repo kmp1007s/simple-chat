@@ -12,11 +12,13 @@ const enterRoom = (socket, room, userName) => {
   }
 };
 
-function RoomContainerDoPerform({ socket, rooms }) {
+function RoomContainerDoPerform({ socket, openRooms, searchedRooms }) {
+  let roomsToRender = searchedRooms || openRooms;
+
   return (
     <Container>
-      {rooms &&
-        rooms.map((room) => (
+      {roomsToRender &&
+        roomsToRender.map((room) => (
           <RoomItem
             key={shortid.generate()}
             room={room}

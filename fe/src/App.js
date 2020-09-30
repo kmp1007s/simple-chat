@@ -11,6 +11,7 @@ function App() {
   const [currentRoom, setCurrentRoom] = useState(undefined);
   const [attenders, setAttenders] = useState(['김두식']);
   const [openRooms, setOpenRooms] = useState(null);
+  const [searchedRooms, setSearchedRooms] = useState(null);
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [messages, setMessages] = useState([
     { msg: '어서오세요!', userName: '환영합니다' },
@@ -99,25 +100,14 @@ function App() {
     <>
       <Routes
         socket={socket}
-        rooms={openRooms}
+        openRooms={openRooms}
+        searchedRooms={searchedRooms}
+        setSearchedRooms={setSearchedRooms}
         attenders={attenders}
         currentUserName={currentUserName}
         messages={messages}
         onLeave={onLeave}
       />
-      <div>
-        {/*<button*/}
-        {/*  onClick={() => {*/}
-        {/*    socket.emit('msg', {*/}
-        {/*      roomName: currentRoom,*/}
-        {/*      msg: 'msg test',*/}
-        {/*      userName: 'userName2',*/}
-        {/*    });*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  전송*/}
-        {/*</button>*/}
-      </div>
     </>
   );
 }

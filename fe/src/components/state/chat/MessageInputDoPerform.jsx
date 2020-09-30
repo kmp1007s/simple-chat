@@ -10,8 +10,6 @@ function MessageInputDoPerform({ socket, roomName, currentUserName }) {
   }, []);
 
   const onMessage = useCallback(() => {
-    console.log(currentUserName);
-
     socket.emit('msg', {
       roomName: roomName,
       msg: inputValue,

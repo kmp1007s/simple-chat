@@ -6,7 +6,9 @@ import Chat from '@pages/Chat';
 
 function Routes({
   socket,
-  rooms,
+  openRooms,
+  searchedRooms,
+  setSearchedRooms,
   attenders,
   currentUserName,
   messages,
@@ -17,7 +19,14 @@ function Routes({
       <Route
         exact
         path="/"
-        render={() => <Index socket={socket} rooms={rooms} />}
+        render={() => (
+          <Index
+            socket={socket}
+            openRooms={openRooms}
+            searchedRooms={searchedRooms}
+            setSearchedRooms={setSearchedRooms}
+          />
+        )}
       />
       <Route
         exact

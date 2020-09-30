@@ -14,7 +14,7 @@ function ChattingContainerDoPerform(props) {
 
   useEffect(() => {
     if (!currentUserName) {
-      alert('없는 방입니다');
+      alert('존재하지 않는 방입니다');
       history.push('/');
     }
 
@@ -26,10 +26,7 @@ function ChattingContainerDoPerform(props) {
 
   useEffect(() => {
     return () => {
-      if (onLeave) {
-        alert('방에서 퇴장합니다');
-        onLeave();
-      }
+      if (onLeave) onLeave();
     };
   }, [onLeave]);
 

@@ -6,7 +6,7 @@ export const Button = styled.button`
   background: ${(props) => props.theme.white};
   padding: 8px 22px;
   transition: all 0.3s ease;
-  color: ${(props) => props.theme.black};
+  color: ${(props) => props.theme.blackLight};
   vertical-align: middle;
   border-radius: 3px;
 

@@ -10,8 +10,9 @@ import WhiteBox from '@atoms/Index/WhiteBox';
 
 import RoomContainerDoPerform from '@components/state/room/RoomContainerDoPerform';
 import WhiteBgButtonDoPerform from '@components/state/index/WhiteBgButtonDoPerform';
+import SearchGroupDoPerform from '@components/state/index/SearchGroupDoPerform';
 
-function Index({ socket, rooms }) {
+function Index({ socket, openRooms, searchedRooms, setSearchedRooms }) {
   return (
     <DevideLeftAndRight
       leftCenter
@@ -35,10 +36,21 @@ function Index({ socket, rooms }) {
       rightComponent={
         <WhiteBox>
           <DevideTopAndBottom
+            topRatio={93}
+            bottomRatio={7}
             topComponent={
-              <RoomContainerDoPerform socket={socket} rooms={rooms} />
+              <RoomContainerDoPerform
+                socket={socket}
+                openRooms={openRooms}
+                searchedRooms={searchedRooms}
+              />
             }
-            bottomComponent={<div>bottomComponent</div>}
+            bottomComponent={
+              <SearchGroupDoPerform
+                openRooms={openRooms}
+                setSearchedRooms={setSearchedRooms}
+              />
+            }
           ></DevideTopAndBottom>
         </WhiteBox>
       }
