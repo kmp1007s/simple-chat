@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import shortid from 'shortid';
 
 import { useHistory } from 'react-router-dom';
@@ -9,8 +9,16 @@ import SystemMesage from '@atoms/chat/SystemMessage';
 import MessageISent from '@molecules/chat/MessageISent';
 
 function ChattingContainerDoPerform(props) {
+  const { messages } = props;
   const history = useHistory();
   const { onLeave, currentUserName } = props;
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  useEffect(scrollToBottom, [messages]);
 
   useEffect(() => {
     if (!currentUserName) {
@@ -29,8 +37,8 @@ function ChattingContainerDoPerform(props) {
 
   return (
     <ChattingContainer>
-      {props.messages &&
-        props.messages.map((message) => {
+      {messages &&
+        messages.map((message) => {
           if (message.userName) {
             let MessageComponentToRender = Message;
 
@@ -46,6 +54,7 @@ function ChattingContainerDoPerform(props) {
           } else
             return <SystemMesage key={shortid.generate()} msg={message.msg} />;
         })}
+      <div ref={messagesEndRef}></div>
     </ChattingContainer>
   );
 }
