@@ -17,6 +17,8 @@ module.exports = {
       ),
       '@styles': path.join(path.resolve(__dirname, 'src/styles')),
       '@lib': path.join(path.resolve(__dirname, 'src/lib')),
+      '@constants': path.join(path.resolve(__dirname, 'src/constants')),
+      '@assets': path.join(path.resolve(__dirname, 'src/assets')),
     },
   },
 };

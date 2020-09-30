@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import Routes from './routes';
 
 import { useHistory } from 'react-router-dom';
+import { messageNotificationAudio } from '@constants/index';
 
 const socket = io('http://localhost:8080');
 
@@ -38,7 +39,6 @@ function App() {
 
     // 방 참가자 변경
     socket.on('user-changed', (attenders) => {
-      console.log(attenders);
       setAttenders(attenders);
     });
 
@@ -64,14 +64,7 @@ function App() {
     // 채팅방의 메시지를 받음
     socket.on('msg', (message) => {
       setMessages((messages) => messages.concat(message));
-
-      if (message.msg) {
-        if (message.userName) {
-          console.log(`${message.userName}: ${message.msg}`);
-        } else {
-          console.log(message.msg);
-        }
-      }
+      messageNotificationAudio.play();
     });
   }, []);
 
@@ -80,7 +73,6 @@ function App() {
   }, []);
 
   const onLeave = useCallback(() => {
-    console.log('App: onLeave');
     socket.emit('leave-room', currentRoom);
   }, [currentRoom]);
 

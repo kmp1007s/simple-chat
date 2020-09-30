@@ -20,15 +20,12 @@ function ChattingContainerDoPerform(props) {
 
     const unblock = history.block('방에서 나가시겠습니까?');
     return () => {
+      if (currentUserName && onLeave) {
+        onLeave();
+      }
       unblock();
     };
-  }, [history, currentUserName]);
-
-  useEffect(() => {
-    return () => {
-      if (onLeave) onLeave();
-    };
-  }, [onLeave]);
+  }, [history, currentUserName, onLeave]);
 
   return (
     <ChattingContainer>

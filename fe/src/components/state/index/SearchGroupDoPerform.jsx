@@ -18,13 +18,7 @@ function SearchGroupDoPerform({ openRooms, setSearchedRooms }) {
     [openRooms, setSearchedRooms]
   );
 
-  return (
-    <SearchGroup
-      type="text"
-      onChange={onChange}
-      value={inputValue}
-    ></SearchGroup>
-  );
+  return <SearchGroup type="text" onChange={onChange} value={inputValue} />;
 }
 
 export default SearchGroupDoPerform;

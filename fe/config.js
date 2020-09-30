@@ -8,5 +8,7 @@ System.config({
     '@organisms/*': 'src/components/UI/organisms/*',
     '@styles/*': 'src/styles/*',
     '@lib/*': 'src/lib/*',
+    '@constants/*': 'src/constants/*',
+    '@assets/*': 'src/assets/*',
   },
 });
