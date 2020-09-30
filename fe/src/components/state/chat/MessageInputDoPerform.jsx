@@ -17,7 +17,19 @@ function MessageInputDoPerform({ socket, roomName, currentUserName }) {
       msg: inputValue,
       userName: currentUserName,
     });
+
+    setInputValue('');
   }, [socket, roomName, currentUserName, inputValue]);
+
+  const onKeyUp = useCallback(
+    (e) => {
+      if (e.key === 'Enter') {
+        console.log('enter');
+        onMessage();
+      }
+    },
+    [onMessage]
+  );
 
   return (
     <MessageInput
@@ -26,6 +38,7 @@ function MessageInputDoPerform({ socket, roomName, currentUserName }) {
       onChange={onChange}
       value={inputValue}
       onMessage={onMessage}
+      onKeyUp={onKeyUp}
     />
   );
 }

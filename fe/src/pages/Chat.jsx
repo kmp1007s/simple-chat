@@ -10,7 +10,7 @@ import AttenderContainerDoPerform from '@components/state/chat/AttenderContainer
 import MessageInputDoPerform from '@components/state/chat/MessageInputDoPerform';
 import ChattingContainerDoPerform from '@components/state/chat/ChattingContainerDoPerform';
 
-function Chat({ socket, attenders, currentUserName, messages }) {
+function Chat({ socket, attenders, currentUserName, messages, onLeave }) {
   const params = useParams();
 
   return (
@@ -36,6 +36,7 @@ function Chat({ socket, attenders, currentUserName, messages }) {
               <ChattingContainerDoPerform
                 messages={messages}
                 currentUserName={currentUserName}
+                onLeave={onLeave}
               />
             }
             bottomComponent={

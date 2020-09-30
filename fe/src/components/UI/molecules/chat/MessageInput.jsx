@@ -12,6 +12,7 @@ function MessageInput(props) {
           type={props.type}
           placeholder={props.placeholder}
           onChange={props.onChange}
+          onKeyUp={props.onKeyUp}
           value={props.value}
         />
       </styles.InputContainer>

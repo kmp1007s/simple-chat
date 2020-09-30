@@ -13,8 +13,8 @@ function App() {
   const [openRooms, setOpenRooms] = useState(null);
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [messages, setMessages] = useState([
-    { msg: 'dummy msg', userName: '김두식' },
-    { msg: 'syste msg' },
+    { msg: '어서오세요!', userName: '환영합니다' },
+    { msg: '이 메시지는 시스템 메시지입니다!' },
   ]);
 
   const history = useHistory();
@@ -51,12 +51,13 @@ function App() {
     socket.on('enter-room-fail', () => {});
 
     // 방 퇴장 응답
-    socket.on('leave-room', (result) => {
-      if (result) {
-        alert('방에서 나왔습니다');
-      } else {
-        alert('방에서 나오지 못했습니다');
-      }
+    socket.on('leave-room-success', () => {
+      alert('방에서 나왔습니다');
+
+      setCurrentRoom(undefined);
+      setAttenders([]);
+      setCurrentUserName(undefined);
+      setMessages([]);
     });
 
     // 채팅방의 메시지를 받음
@@ -76,6 +77,11 @@ function App() {
   const initialEmit = useCallback(() => {
     socket.emit('fetch-rooms');
   }, []);
+
+  const onLeave = useCallback(() => {
+    console.log('App: onLeave');
+    socket.emit('leave-room', currentRoom);
+  }, [currentRoom]);
 
   // 초기 한번만 실행
   useEffect(() => {
@@ -97,6 +103,7 @@ function App() {
         attenders={attenders}
         currentUserName={currentUserName}
         messages={messages}
+        onLeave={onLeave}
       />
       <div>
         {/*<button*/}

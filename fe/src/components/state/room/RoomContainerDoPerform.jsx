@@ -4,14 +4,12 @@ import shortid from 'shortid';
 import Container from '@organisms/room/Container';
 import RoomItem from '@molecules/room/RoomItem';
 
+import { isEmptyOrSpaces } from '@lib/builtin/string';
+
 const enterRoom = (socket, room, userName) => {
   if (socket) {
     socket.emit('enter-room', room, userName);
   }
-};
-
-const leaveRoom = (socket, room) => {
-  if (socket) socket.emit('leave-room', room);
 };
 
 function RoomContainerDoPerform({ socket, rooms }) {
@@ -24,10 +22,13 @@ function RoomContainerDoPerform({ socket, rooms }) {
             room={room}
             onEnter={() => {
               const userName = prompt('사용할 이름을 입력해주세요');
+
+              if (isEmptyOrSpaces(userName)) {
+                alert('사용할 이름을 제대로 입력해주세요!');
+                return;
+              }
+
               enterRoom(socket, room, userName);
-            }}
-            onLeave={() => {
-              leaveRoom(socket, room);
             }}
           />
         ))}

@@ -4,7 +4,14 @@ import { Switch, Route } from 'react-router-dom';
 import Index from '@pages/Index';
 import Chat from '@pages/Chat';
 
-function Routes({ socket, rooms, attenders, currentUserName, messages }) {
+function Routes({
+  socket,
+  rooms,
+  attenders,
+  currentUserName,
+  messages,
+  onLeave,
+}) {
   return (
     <Switch>
       <Route
@@ -21,6 +28,7 @@ function Routes({ socket, rooms, attenders, currentUserName, messages }) {
             attenders={attenders}
             currentUserName={currentUserName}
             messages={messages}
+            onLeave={onLeave}
           />
         )}
       />
